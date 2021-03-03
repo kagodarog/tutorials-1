@@ -62,9 +62,9 @@ spec:
         - name: MONGODB_ADVERTISED_HOSTNAME
           value: "$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local"
         - name: MONGODB_USERNAME
-          value: "username"
+          value: "nodejs"
         - name: MONGODB_DATABASE
-          value: "database"
+          value: "inventory"
         - name: MONGODB_REPLICA_SET_NAME
           value: "rs0"
         - name: MONGODB_PASSWORD
