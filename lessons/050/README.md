@@ -2,37 +2,30 @@
 
 [YouTube Tutorial]()
 
-helm fetch bitnami/mongodb
-
-helm template bitnami/mongodb -f mongodb/values.yaml --output-dir mongo-standalone
-
 https://grafana.com/grafana/dashboards/12594
 
 
-https://github.com/bitnami/bitnami-docker-mongodb#setting-up-replication
+
+
+
+
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 424432388155.dkr.ecr.us-east-1.amazonaws.com
+docker tag drage:v0.1.4 424432388155.dkr.ecr.us-east-1.amazonaws.com/drage:v0.1.4
+docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/drage:v0.1.4
+
 
 kubectl port-forward svc/mongodb-headless 27017:27017 -n database
+mongo -u drage -p secretpassword123 --authenticationDatabase inventory
 
-db.auth({ user: "root", pwd: "password123" })
-db.auth({ user: "username", pwd: "password" })
-
-db.auth("username", "password")
-
-mongo -u username -p password --authenticationDatabase database
-mongo -u root -p password123
-
-Collections are analogous to tables in relational databases.
-MongoDB stores data records as documents (specifically BSON documents) which are gathered together in collections. A database stores one or more collections of documents.
-
+use inventory
 db.books.insertMany([
    { title: "Moby Dick", author: "Herman Melville" },
    { title: "The Great Gatsby", author: "F. Scott Fitzgerald" },
    { title: "One Hundred Years of Solitude", author: "Gabriel Garcia Marquez" }
 ]);
-
 db.books.find({}).pretty()
 
+kubectl port-forward svc/drage 4000:4000 -n staging
 
-set -B                  # enable brace expansion
-
-for i in {1..1000}; do curl localhost:5000/books; done
+for i in {1..1000}; do curl localhost:4000/books; done
