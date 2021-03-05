@@ -5,6 +5,9 @@
 https://grafana.com/grafana/dashboards/12594
 
 ```
+kubectl port-forward svc/grafana 3000:3000 -n monitoring
+```
+```
 kubectl port-forward svc/mongodb-headless 27017:27017 -n database
 ```
 ```
